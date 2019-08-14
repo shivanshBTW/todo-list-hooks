@@ -25,10 +25,15 @@ function TodoApp(props) {
     ];
     let [todos, setTodos] = useState(initialTodos);
 
+    function deleteItem(toDeleteTodo) {
+        setTodos(todos.filter(todo=>todo.id!==toDeleteTodo.id));
+    }
+
+
     return (
         <div>
             <Paper className={classes.root}>
-                <TodoList todos={todos}/>
+                <TodoList todos={todos} deleteItem={deleteItem}/>
             </Paper>
         </div>
     );

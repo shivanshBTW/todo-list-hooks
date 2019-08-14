@@ -9,10 +9,12 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 function TodoItem(props) {
     const [checked, setChecked] = React.useState(props.todo.completed);
-
     const handleToggle = ()=>{
         setChecked(!checked);
     };
+    function handleDelete() {
+        props.deleteItem(props.todo);
+    }
     return (
         <ListItem dense button>
             <ListItemIcon>
@@ -22,12 +24,12 @@ function TodoItem(props) {
                     onClick={handleToggle}
                     tabIndex={-1}
                     disableRipple
-                    inputProps={{ 'aria-labelledby': props.todoId }}
+                    inputProps={{ 'aria-labelledby': props.todo.id }}
                 />
             </ListItemIcon>
-            <ListItemText id={props.todoId} primary={`${props.todo.task}`} />
+            <ListItemText id={props.todo.id} primary={`${props.todo.task}`} />
             <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="comments">
+                <IconButton edge="end" aria-label="deleteIcon" onClick={handleDelete}>
                     <DeleteIcon />
                 </IconButton>
             </ListItemSecondaryAction>

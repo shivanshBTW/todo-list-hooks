@@ -2,6 +2,7 @@ import React from 'react';
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TodoItem from "./TodoItem";
 import List from "@material-ui/core/List";
+import uuid from 'uuid/v4'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -16,9 +17,9 @@ function TodoList(props) {
     return (
         <div className={classes.root}>
             <List component="nav" aria-label="main mailbox folders">
-                {props.todos.map((todo, index) => {
-                    return <div key={index}>
-                        <TodoItem todo={todo} todoId={index}/>
+                {props.todos.map((todo) => {
+                    return <div key={uuid()}>
+                        <TodoItem todo={todo} deleteItem={props.deleteItem}/>
                     </div>
                 })}
             </List>
