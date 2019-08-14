@@ -6,7 +6,8 @@ import TodoList from "./TodoList";
 const useStyles = makeStyles(theme => ({
     root: {
         padding: theme.spacing(3, 2),
-        margin: theme.spacing(7, 10)
+        margin: theme.spacing(7, 40),
+
     },
     list: {
         width: '100%',
