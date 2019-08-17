@@ -29,11 +29,20 @@ function TodoApp(props) {
         setTodos(todos.filter(todo=>todo.id!==toDeleteTodo.id));
     }
 
+    function editItem(editedItem) {
+        let tempArray = [...todos];
+        for(let i = 0; i<tempArray.length;i++){
+            if(tempArray[i].id===editedItem.id){
+                tempArray[i]=editedItem;
+            }
+        }
+        setTodos(tempArray);
+    }
 
     return (
         <div>
             <Paper className={classes.root}>
-                <TodoList todos={todos} deleteItem={deleteItem}/>
+                <TodoList editItem={editItem} todos={todos} deleteItem={deleteItem}/>
             </Paper>
         </div>
     );

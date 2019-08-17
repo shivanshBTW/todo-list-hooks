@@ -31,9 +31,9 @@ function TopBar(props) {
                         {/*    <MenuIcon/>*/}
                         {/*</IconButton>*/}
                         <Typography variant="h6" className={classes.title}>
-                            Todo List
+                            Todo List on React Hooks
                         </Typography>
-                        <Button color="inherit">Login</Button>
+                        <Button color="inherit">Add Todo</Button>
                     </Toolbar>
                 </AppBar>
             </div>
