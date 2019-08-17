@@ -80,7 +80,6 @@ function TodoApp(props) {
     });
 
     function addTodo() {
-        console.log(todos[todos.length - 1] + 1);
         setTodos([...todos, {...emptyTodo, id: todos[todos.length - 1].id + 1}]);
     }
 

@@ -15,7 +15,6 @@ const useStyles = makeStyles(theme => ({
 
 function TodoList(props) {
     const classes = useStyles();
-    console.log(props);
     return (
         <div className={classes.root}>
             <List component="nav" aria-label="main mailbox folders">

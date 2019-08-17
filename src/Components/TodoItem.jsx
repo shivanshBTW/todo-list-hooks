@@ -18,7 +18,6 @@ function TodoItem(props) {
     }
 
     function handleEditToggle() {
-        console.log(props.todo,'xzxzxzx');
         props.toggleEditItem(props.todo);
     }
 
