@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
         flexWrap: 'wrap',
     },
     textField: {
-        flex: '.92',
+        flex: '.90',
         // marginLeft: theme.spacing(1),
         // marginRight: theme.spacing(1),
         width: '100%'
@@ -33,8 +33,9 @@ const useStyles = makeStyles(theme => ({
     },
     saveButton: {
         flex: '.08',
-        // width:'100%',
+        width:'100%',
         marginTop: '6px',
+        marginLeft:'2%',
         padding: '1em 2em',
     },
     icon: {
@@ -83,13 +84,11 @@ function TodoForm(props) {
                 margin="normal"
                 variant="filled"
             />
-            <ListItemSecondaryAction>
                 <ThemeProvider theme={theme}>
                     <Button variant="contained" color="primary" className={classes.saveButton} onClick={handleSave}>
                         <Icon className={clsx(classes.icon, 'fas fa-save')} color="action"/>
                     </Button>
                 </ThemeProvider>
-            </ListItemSecondaryAction>
         </ListItem>
     );
 }

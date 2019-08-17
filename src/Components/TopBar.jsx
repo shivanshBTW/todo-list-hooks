@@ -33,7 +33,6 @@ function TopBar(props) {
                         <Typography variant="h6" className={classes.title}>
                             Todo List on React Hooks
                         </Typography>
-                        <Button color="inherit">Add Todo</Button>
                     </Toolbar>
                 </AppBar>
             </div>
