@@ -15,33 +15,15 @@ const useStyles = makeStyles(theme => ({
 
 function TodoList(props) {
     const classes = useStyles();
-    let [todos, setTodos] = useState(props.todos);
-
-    useEffect(() => {
-        let temp = todos.map(todo => {
-            return {...todo, isEditOn: false}
-        });
-        let temp2 = todos.map(todo => {
-            return {...todo, isEditOn: true}
-        });
-        return setTodos([...temp,...temp2]);
-    },[]);
-
-    function toggleEditOn(toEditTodo) {
-        setTodos(todos.map(todo=>{
-            if(todo.id === toEditTodo.id){
-                todo.isEditOn = !todo.isEditOn;
-            }
-        }));
-    }
-
+    console.log(props);
     return (
         <div className={classes.root}>
             <List component="nav" aria-label="main mailbox folders">
-                {todos.map((todo) => {
+
+                {props.todos.map((todo) => {
                     return <div key={uuid()}>
-                        {todo.isEditOn ? <TodoForm todo={todo} lol='as' editItem={props.editItem} toggleEditItem={toggleEditOn}/> :
-                            <TodoItem todo={todo} toggleEditItem={toggleEditOn} deleteItem={props.deleteItem}/>}
+                        {todo && todo.isEditOn ? <TodoForm todo={todo} lol='as' editItem={props.editItem} toggleEditItem={props.toggleEditOn}/> :
+                            <TodoItem todo={todo} toggleEditItem={props.toggleEditOn} deleteItem={props.deleteItem}/>}
                     </div>
                 })}
             </List>

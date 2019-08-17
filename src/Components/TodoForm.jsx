@@ -55,9 +55,9 @@ function TodoForm(props) {
 
     const [task, setTask] = React.useState(props.todo.task);
 
-    const handleChange =  event => {
+    function handleChange(event) {
         setTask(event.target.value);
-    };
+    }
 
     const theme = createMuiTheme({
         palette: {
@@ -66,10 +66,9 @@ function TodoForm(props) {
     });
 
     function handleSave() {
-        let toSendObj = props.todo;
+        let toSendObj = {...props.todo,task:task};
         delete toSendObj.isEditOn;
         props.editItem(toSendObj);
-        props.toggleEditItem(props.todo);
     }
 
     return (

@@ -16,6 +16,12 @@ function TodoItem(props) {
     function handleDelete() {
         props.deleteItem(props.todo);
     }
+
+    function handleEditToggle() {
+        console.log(props.todo,'xzxzxzx');
+        props.toggleEditItem(props.todo);
+    }
+
     return (
         <ListItem dense button>
             <ListItemIcon>
@@ -29,7 +35,7 @@ function TodoItem(props) {
                 />
             </ListItemIcon>
             <ListItemText id={props.todo.id} primary={`${props.todo.task}`} />
-                <IconButton edge="end" aria-label="deleteIcon" onClick={handleDelete}>
+                <IconButton edge="end" aria-label="deleteIcon" onClick={handleEditToggle}>
                     <EditIcon />
                 </IconButton>
                 <IconButton edge="end" aria-label="deleteIcon" onClick={handleDelete}>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Paper from "@material-ui/core/Paper";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TodoList from "./TodoList";
@@ -25,6 +25,27 @@ function TodoApp(props) {
     ];
     let [todos, setTodos] = useState(initialTodos);
 
+    // useEffect(() => {
+    //     let temp = todos.map(todo => {
+    //         return {...todo, isEditOn: false}
+    //     });
+    //     let temp2 = todos.map(todo => {
+    //         return {...todo, isEditOn: true}
+    //     });
+    //     return setTodos([...temp,...temp2]);
+    // },[]);
+
+    function toggleEditOn(toEditTodo) {
+        let temp = todos.map(todo => {
+            if(todo.id === toEditTodo.id){
+                return {...todo, isEditOn: !todo.isEditOn}
+            }else{
+                return todo
+            }
+        });
+        setTodos(temp);
+    }
+
     function deleteItem(toDeleteTodo) {
         setTodos(todos.filter(todo=>todo.id!==toDeleteTodo.id));
     }
@@ -42,7 +63,7 @@ function TodoApp(props) {
     return (
         <div>
             <Paper className={classes.root}>
-                <TodoList editItem={editItem} todos={todos} deleteItem={deleteItem}/>
+                <TodoList editItem={editItem} todos={todos} toggleEditOn={toggleEditOn} deleteItem={deleteItem}/>
             </Paper>
         </div>
     );
