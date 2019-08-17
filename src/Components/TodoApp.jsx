@@ -80,7 +80,8 @@ function TodoApp(props) {
     });
 
     function addTodo() {
-        setTodos([...todos, {...emptyTodo, id: todos[todos.length - 1] + 1}]);
+        console.log(todos[todos.length - 1] + 1);
+        setTodos([...todos, {...emptyTodo, id: todos[todos.length - 1].id + 1}]);
     }
 
     React.useEffect(() => {
