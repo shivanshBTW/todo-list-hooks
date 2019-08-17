@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TodoItem from "./TodoItem";
 import List from "@material-ui/core/List";

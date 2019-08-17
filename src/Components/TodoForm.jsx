@@ -1,7 +1,4 @@
 import React from 'react';
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import IconButton from "@material-ui/core/IconButton";
 import {loadCSS} from 'fg-loadcss';
 import ListItem from "@material-ui/core/ListItem";
 import TextField from "@material-ui/core/TextField";
