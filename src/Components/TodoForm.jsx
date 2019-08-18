@@ -71,7 +71,6 @@ function TodoForm(props) {
 
     return (
         <ListItem className={classes.container}>
-            {/*<ListItemText id={props.todo.id} primary={`${props.todo.task}`} />*/}
             <TextField
                 id="filled-name"
                 label="Name"

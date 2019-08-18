@@ -22,7 +22,6 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: theme.palette.background.paper,
     },
     addTodoButton: {
-        // margin: '3rem 2rem',
         margin: '1em 2rem',
         float: 'right'
     }
@@ -37,16 +36,6 @@ function TodoApp(props) {
     ];
     const emptyTodo = {id: undefined, task: "", completed: false, isEditOn: true};
     let [todos, setTodos] = useState(initialTodos);
-
-    // useEffect(() => {
-    //     let temp = todos.map(todo => {
-    //         return {...todo, isEditOn: false}
-    //     });
-    //     let temp2 = todos.map(todo => {
-    //         return {...todo, isEditOn: true}
-    //     });
-    //     return setTodos([...temp,...temp2]);
-    // },[]);
 
     function toggleEditOn(toEditTodo) {
         let temp = todos.map(todo => {

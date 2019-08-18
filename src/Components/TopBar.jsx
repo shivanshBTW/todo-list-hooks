@@ -24,9 +24,6 @@ function TopBar(props) {
             <div className={classes.root}>
                 <AppBar position="static">
                     <Toolbar>
-                        {/*<IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" href={''}>*/}
-                        {/*    <MenuIcon/>*/}
-                        {/*</IconButton>*/}
                         <Typography variant="h6" className={classes.title}>
                             Todo List on React Hooks
                         </Typography>
