@@ -13,8 +13,15 @@ import Icon from "@material-ui/core/Icon";
 const useStyles = makeStyles(theme => ({
     root: {
         padding: theme.spacing(3, 2),
-        margin: '3rem 2rem',
-        marginBottom: 0
+        '@media (min-width: 0px)':{
+            margin: '3rem 2rem',
+            marginBottom: 0
+        },
+        '@media (min-width: 768px)':{
+            margin: '3rem 8rem',
+            marginBottom: 0
+        },
+
     },
     list: {
         width: '100%',
@@ -22,7 +29,13 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: theme.palette.background.paper,
     },
     addTodoButton: {
-        margin: '1em 2rem',
+        '@media (min-width: 0px)':{
+            margin: '1em 2rem',
+        },
+        '@media (min-width: 768px)':{
+            margin: '1em 8rem',
+        },
+
         float: 'right'
     }
 }));
