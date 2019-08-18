@@ -9,6 +9,7 @@ import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import Button from "@material-ui/core/Button";
 import {ThemeProvider} from '@material-ui/styles';
 import {green} from "@material-ui/core/colors";
+import UseInputState from "../hooks/UseInputState";
 
 
 const useStyles = makeStyles(theme => ({
@@ -30,9 +31,9 @@ const useStyles = makeStyles(theme => ({
     },
     saveButton: {
         flex: '.08',
-        width:'100%',
+        width: '100%',
         marginTop: '6px',
-        marginLeft:'2%',
+        marginLeft: '2%',
         padding: '1em 2em',
     },
     icon: {
@@ -51,11 +52,8 @@ function TodoForm(props) {
         );
     }, []);
 
-    const [task, setTask] = React.useState(props.todo.task);
+    const [task, handleChangeTask] = UseInputState(props.todo.task);
 
-    function handleChange(event) {
-        setTask(event.target.value);
-    }
 
     const theme = createMuiTheme({
         palette: {
@@ -64,9 +62,14 @@ function TodoForm(props) {
     });
 
     function handleSave() {
-        let toSendObj = {...props.todo,task:task};
-        delete toSendObj.isEditOn;
-        props.editItem(toSendObj);
+        if (task) {
+            let toSendObj = {...props.todo, task: task};
+            delete toSendObj.isEditOn;
+            props.editItem(toSendObj);
+        }
+        else{
+            props.deleteItem(props.todo);
+        }
     }
 
     return (
@@ -76,15 +79,15 @@ function TodoForm(props) {
                 label="Name"
                 className={classes.textField}
                 value={task}
-                onChange={handleChange}
+                onChange={handleChangeTask}
                 margin="normal"
                 variant="filled"
             />
-                <ThemeProvider theme={theme}>
-                    <Button variant="contained" color="primary" className={classes.saveButton} onClick={handleSave}>
-                        <Icon className={clsx(classes.icon, 'fas fa-save')} color="action"/>
-                    </Button>
-                </ThemeProvider>
+            <ThemeProvider theme={theme}>
+                <Button variant="contained" color="primary" className={classes.saveButton} onClick={handleSave}>
+                    <Icon className={clsx(classes.icon, 'fas fa-save')} color="action"/>
+                </Button>
+            </ThemeProvider>
         </ListItem>
     );
 }

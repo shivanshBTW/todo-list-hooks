@@ -21,7 +21,7 @@ function TodoList(props) {
 
                 {props.todos.map((todo) => {
                     return <div key={uuid()}>
-                        {todo && todo.isEditOn ? <TodoForm todo={todo} lol='as' editItem={props.editItem} toggleEditItem={props.toggleEditOn}/> :
+                        {todo && todo.isEditOn ? <TodoForm todo={todo} lol='as' editItem={props.editItem} toggleEditItem={props.toggleEditOn} deleteItem={props.deleteItem}/> :
                             <TodoItem todo={todo} toggleEditItem={props.toggleEditOn} deleteItem={props.deleteItem}/>}
                     </div>
                 })}
