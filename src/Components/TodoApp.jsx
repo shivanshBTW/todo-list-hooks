@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Paper from "@material-ui/core/Paper";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TodoList from "./TodoList";
@@ -9,6 +9,7 @@ import {ThemeProvider} from '@material-ui/styles';
 import {loadCSS} from "fg-loadcss";
 import clsx from "clsx";
 import Icon from "@material-ui/core/Icon";
+import uuid from 'uuid/v4';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -42,13 +43,23 @@ const useStyles = makeStyles(theme => ({
 
 function TodoApp(props) {
     const classes = useStyles();
-    const initialTodos = [
-        {id: 1, task: "water the plants", completed: false},
-        {id: 2, task: "feed the fishes", completed: true},
-        {id: 3, task: "charge the phone", completed: false}
-    ];
+    // const initialTodos = [
+    //     {id: 1, task: "water the plants", completed: false},
+    //     {id: 2, task: "feed the fishes", completed: true},
+    //     {id: 3, task: "charge the phone", completed: false}
+    // ];
     const emptyTodo = {id: undefined, task: "", completed: false, isEditOn: true};
-    let [todos, setTodos] = useState(initialTodos);
+    let [todos, setTodos] = useState([]);
+
+    //componentDidMount
+    useEffect(()=>{
+        setTodos(JSON.parse(window.localStorage.getItem('todos')));
+    },[]);
+
+    //when todos change
+    useEffect(()=>{
+       window.localStorage.setItem('todos',JSON.stringify(todos))
+    },[todos]);
 
     function toggleEditOn(toEditTodo) {
         let temp = todos.map(todo => {
@@ -82,7 +93,7 @@ function TodoApp(props) {
     });
 
     function addTodo() {
-        setTodos([...todos, {...emptyTodo, id: todos[todos.length - 1].id + 1}]);
+        setTodos([...todos, {...emptyTodo, id: uuid() + 1}]);
     }
 
     React.useEffect(() => {
@@ -94,9 +105,9 @@ function TodoApp(props) {
 
     return (<>
             <div>
-                <Paper className={classes.root}>
+                {todos.length>0 && <Paper className={classes.root}>
                     <TodoList editItem={editItem} todos={todos} toggleEditOn={toggleEditOn} deleteItem={deleteItem}/>
-                </Paper>
+                </Paper>}
                 <ThemeProvider theme={theme}>
                     <Button variant="contained" className={classes.addTodoButton} onClick={addTodo} color="primary">Add Todo&nbsp;<Icon
                         className={clsx(classes.icon, 'fas fa-plus-circle')}
