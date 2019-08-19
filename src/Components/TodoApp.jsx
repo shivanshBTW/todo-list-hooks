@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import Paper from "@material-ui/core/Paper";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TodoList from "./TodoList";
@@ -9,7 +9,7 @@ import {ThemeProvider} from '@material-ui/styles';
 import {loadCSS} from "fg-loadcss";
 import clsx from "clsx";
 import Icon from "@material-ui/core/Icon";
-import uuid from 'uuid/v4';
+import TodoState from "../hooks/TodoState";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -43,48 +43,17 @@ const useStyles = makeStyles(theme => ({
 
 function TodoApp(props) {
     const classes = useStyles();
-    // const initialTodos = [
-    //     {id: 1, task: "water the plants", completed: false},
-    //     {id: 2, task: "feed the fishes", completed: true},
-    //     {id: 3, task: "charge the phone", completed: false}
-    // ];
-    const emptyTodo = {id: undefined, task: "", completed: false, isEditOn: true};
-    let [todos, setTodos] = useState([]);
+    const initialTodos = JSON.parse(window.localStorage.getItem('todos')) || [];
 
-    //componentDidMount
-    useEffect(()=>{
-        setTodos(JSON.parse(window.localStorage.getItem('todos')));
-    },[]);
+    //using todoState
+    let [todos,deleteTodo,editTodo,addTodo,toggleTodo] = TodoState(initialTodos);
 
-    //when todos change
+
     useEffect(()=>{
        window.localStorage.setItem('todos',JSON.stringify(todos))
     },[todos]);
 
-    function toggleEditOn(toEditTodo) {
-        let temp = todos.map(todo => {
-            if (todo.id === toEditTodo.id) {
-                return {...todo, isEditOn: !todo.isEditOn}
-            } else {
-                return todo
-            }
-        });
-        setTodos(temp);
-    }
 
-    function deleteItem(toDeleteTodo) {
-        setTodos(todos.filter(todo => todo.id !== toDeleteTodo.id));
-    }
-
-    function editItem(editedItem) {
-        let tempArray = [...todos];
-        for (let i = 0; i < tempArray.length; i++) {
-            if (tempArray[i].id === editedItem.id) {
-                tempArray[i] = editedItem;
-            }
-        }
-        setTodos(tempArray);
-    }
 
     const theme = createMuiTheme({
         palette: {
@@ -92,9 +61,6 @@ function TodoApp(props) {
         },
     });
 
-    function addTodo() {
-        setTodos([...todos, {...emptyTodo, id: uuid() + 1}]);
-    }
 
     React.useEffect(() => {
         loadCSS(
@@ -106,7 +72,7 @@ function TodoApp(props) {
     return (<>
             <div>
                 {todos.length>0 && <Paper className={classes.root}>
-                    <TodoList editItem={editItem} todos={todos} toggleEditOn={toggleEditOn} deleteItem={deleteItem}/>
+                    <TodoList editItem={editTodo} todos={todos} toggleEditOn={toggleTodo} deleteItem={deleteTodo}/>
                 </Paper>}
                 <ThemeProvider theme={theme}>
                     <Button variant="contained" className={classes.addTodoButton} onClick={addTodo} color="primary">Add Todo&nbsp;<Icon
