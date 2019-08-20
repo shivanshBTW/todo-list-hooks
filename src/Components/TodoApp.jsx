@@ -44,9 +44,13 @@ const useStyles = makeStyles(theme => ({
 function TodoApp(props) {
     const classes = useStyles();
     const initialTodos = JSON.parse(window.localStorage.getItem('todos')) || [];
-
+    // const initialTodos = [
+    //     {id: 1, task: "water the plants", completed: false},
+    //     {id: 2, task: "feed the fishes", completed: true},
+    //     {id: 3, task: "charge the phone", completed: false}
+    // ];
     //using todoState
-    let [todos,deleteTodo,editTodo,addTodo,toggleTodo] = TodoState(initialTodos);
+    let [todos,deleteTodo,editTodo,addTodo,toggleTodo,toggleCompleted] = TodoState(initialTodos);
 
 
     useEffect(()=>{
@@ -72,7 +76,7 @@ function TodoApp(props) {
     return (<>
             <div>
                 {todos.length>0 && <Paper className={classes.root}>
-                    <TodoList editItem={editTodo} todos={todos} toggleEditOn={toggleTodo} deleteItem={deleteTodo}/>
+                    <TodoList editTodo={editTodo} todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} toggleCompleted={toggleCompleted}/>
                 </Paper>}
                 <ThemeProvider theme={theme}>
                     <Button variant="contained" className={classes.addTodoButton} onClick={addTodo} color="primary">Add Todo&nbsp;<Icon

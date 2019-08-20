@@ -5,15 +5,24 @@ function TodoState(initialTodos) {
     const emptyTodo = {id: undefined, task: "", completed: false, isEditOn: true};
     let [todos, setTodos] = useState(initialTodos);
 
-    function toggleTodo(toEditTodo) {
-        let temp = todos.map(todo => {
-            if (todo.id === toEditTodo.id) {
-                return {...todo, isEditOn: !todo.isEditOn}
-            } else {
-                return todo
+    function toggleTodo(toToggleTodo) {
+        let tempArray = [...todos];
+        for (let i = 0; i < tempArray.length; i++) {
+            if (tempArray[i].id === toToggleTodo.id) {
+                tempArray[i].isEditOn = !toToggleTodo.isEditOn;
             }
-        });
-        setTodos(temp);
+        }
+        setTodos(tempArray);
+    }
+
+    function toggleCompleted(toToggleTodo) {
+        let tempArray = [...todos];
+        for (let i = 0; i < tempArray.length; i++) {
+            if (tempArray[i].id === toToggleTodo.id) {
+                tempArray[i].completed = !toToggleTodo.completed;
+            }
+        }
+        setTodos(tempArray);
     }
 
     function deleteTodo(toDeleteTodo) {
@@ -35,7 +44,7 @@ function TodoState(initialTodos) {
     }
 
 
-    return [todos,deleteTodo,editTodo,addTodo,toggleTodo]
+    return [todos,deleteTodo,editTodo,addTodo,toggleTodo,toggleCompleted]
 }
 
 export default TodoState;

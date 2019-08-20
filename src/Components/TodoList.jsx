@@ -9,7 +9,6 @@ const useStyles = makeStyles(theme => ({
     root: {
         width: '100%',
         backgroundColor: theme.palette.background.paper,
-
     }
 }));
 
@@ -21,8 +20,8 @@ function TodoList(props) {
 
                 {props.todos.map((todo) => {
                     return <div key={uuid()}>
-                        {todo && todo.isEditOn ? <TodoForm todo={todo} lol='as' editItem={props.editItem} toggleEditItem={props.toggleEditOn} deleteItem={props.deleteItem}/> :
-                            <TodoItem todo={todo} toggleEditItem={props.toggleEditOn} deleteItem={props.deleteItem}/>}
+                        {todo && todo.isEditOn ? <TodoForm todo={todo} lol='as' editTodo={props.editTodo}  toggleTodo={props.toggleTodo} deleteTodo={props.deleteTodo}/> :
+                            <TodoItem todo={todo} toggleTodo={props.toggleTodo} toggleCompleted={props.toggleCompleted} deleteTodo={props.deleteTodo}/>}
                     </div>
                 })}
             </List>

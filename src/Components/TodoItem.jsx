@@ -6,18 +6,29 @@ import IconButton from "@material-ui/core/IconButton";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import Slide from '@material-ui/core/Slide';
+
+const useStyles = makeStyles(theme => ({
+    strike: {
+        textDecoration: 'line-through'
+    }
+}));
 
 function TodoItem(props) {
-    const [checked, setChecked] = React.useState(props.todo.completed);
-    const handleToggle = ()=>{
-        setChecked(!checked);
+    const classes = useStyles();
+    const [checked] = React.useState(props.todo.completed);
+    const handleToggle = () => {
+        // setChecked(!checked);
+        props.toggleCompleted(props.todo);
     };
+
     function handleDelete() {
-        props.deleteItem(props.todo);
+        props.deleteTodo(props.todo);
     }
 
     function handleEditToggle() {
-        props.toggleEditItem(props.todo);
+        props.toggleTodo(props.todo);
     }
 
     return (
@@ -29,16 +40,22 @@ function TodoItem(props) {
                     onClick={handleToggle}
                     tabIndex={-1}
                     disableRipple
-                    inputProps={{ 'aria-labelledby': props.todo.id }}
+                    inputProps={{'aria-labelledby': props.todo.id}}
                 />
             </ListItemIcon>
-            <ListItemText id={props.todo.id} primary={`${props.todo.task}`} />
-                <IconButton edge="end" aria-label="deleteIcon" onClick={handleEditToggle}>
-                    <EditIcon />
-                </IconButton>
-                <IconButton edge="end" aria-label="deleteIcon" onClick={handleDelete}>
-                    <DeleteIcon />
-                </IconButton>
+            {checked ? <Slide in={checked} direction={"right"} timeout={70}><ListItemText
+                    className={checked ? classes.strike : ''} id={props.todo.id}
+                    primary={`${props.todo.task}`}/></Slide> :
+                <ListItemText className={checked ? classes.strike : ''} id={props.todo.id}
+                              primary={`${props.todo.task}`}/>}
+
+
+            {checked ? '' : <IconButton edge="end" aria-label="editIcon" onClick={handleEditToggle}>
+                <EditIcon/>
+            </IconButton>}
+            <IconButton edge="end" aria-label="deleteIcon" onClick={handleDelete}>
+                <DeleteIcon/>
+            </IconButton>
         </ListItem>
     );
 }

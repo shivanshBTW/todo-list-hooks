@@ -19,8 +19,6 @@ const useStyles = makeStyles(theme => ({
     },
     textField: {
         flex: '.90',
-        // marginLeft: theme.spacing(1),
-        // marginRight: theme.spacing(1),
         width: '100%'
     },
     dense: {
@@ -50,6 +48,10 @@ function TodoForm(props) {
             'https://use.fontawesome.com/releases/v5.1.0/css/all.css',
             document.querySelector('#font-awesome-css'),
         );
+        return ()=>{
+            let toSendObj = {...props.todo, task: task,isEditOn:props.todo.isEditOn };
+            props.editTodo(toSendObj);
+        }
     }, []);
 
     const [task, handleChangeTask] = UseInputState(props.todo.task);
@@ -61,14 +63,15 @@ function TodoForm(props) {
         },
     });
 
-    function handleSave() {
+    function handleSave(e) {
+        e.preventDefault();
         if (task) {
             let toSendObj = {...props.todo, task: task};
             delete toSendObj.isEditOn;
-            props.editItem(toSendObj);
+            props.editTodo(toSendObj);
         }
         else{
-            props.deleteItem(props.todo);
+            props.deleteTodo(props.todo);
         }
     }
 
