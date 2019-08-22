@@ -48,14 +48,13 @@ function TodoForm(props) {
             'https://use.fontawesome.com/releases/v5.1.0/css/all.css',
             document.querySelector('#font-awesome-css'),
         );
-        return ()=>{
-            let toSendObj = {...props.todo, task: task,isEditOn:props.todo.isEditOn };
-            props.editTodo(toSendObj);
-        }
+        // return ()=>{
+        //     let toSendObj = {...props.todo, task: task,isEditOn:props.todo.isEditOn };
+        //     props.editTodo(toSendObj);
+        // }
     }, []);
 
     const [task, handleChangeTask] = UseInputState(props.todo.task);
-
 
     const theme = createMuiTheme({
         palette: {

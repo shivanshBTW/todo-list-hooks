@@ -10,15 +10,16 @@ import {loadCSS} from "fg-loadcss";
 import clsx from "clsx";
 import Icon from "@material-ui/core/Icon";
 import TodoState from "../hooks/TodoState";
+import UseLocalStorage from "../hooks/useLocalStorage";
 
 const useStyles = makeStyles(theme => ({
     root: {
         padding: theme.spacing(3, 2),
-        '@media (min-width: 0px)':{
+        '@media (min-width: 0px)': {
             margin: '3rem 2rem',
             marginBottom: 0
         },
-        '@media (min-width: 768px)':{
+        '@media (min-width: 768px)': {
             margin: '3rem 8rem',
             marginBottom: 0
         },
@@ -30,10 +31,10 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: theme.palette.background.paper,
     },
     addTodoButton: {
-        '@media (min-width: 0px)':{
+        '@media (min-width: 0px)': {
             margin: '1em 2rem',
         },
-        '@media (min-width: 768px)':{
+        '@media (min-width: 768px)': {
             margin: '1em 8rem',
         },
 
@@ -43,21 +44,19 @@ const useStyles = makeStyles(theme => ({
 
 function TodoApp(props) {
     const classes = useStyles();
-    const initialTodos = JSON.parse(window.localStorage.getItem('todos')) || [];
+    const [setLocalStorage, getLocalStorage] = UseLocalStorage();
+    const initialTodos = getLocalStorage('todos') || [];
+    //structure of the todo list
     // const initialTodos = [
     //     {id: 1, task: "water the plants", completed: false},
-    //     {id: 2, task: "feed the fishes", completed: true},
-    //     {id: 3, task: "charge the phone", completed: false}
     // ];
+
     //using todoState
-    let [todos,deleteTodo,editTodo,addTodo,toggleTodo,toggleCompleted] = TodoState(initialTodos);
+    let [todos, deleteTodo, editTodo, addTodo, toggleTodo, toggleCompleted] = TodoState(initialTodos);
 
-
-    useEffect(()=>{
-       window.localStorage.setItem('todos',JSON.stringify(todos))
-    },[todos]);
-
-
+    useEffect(() => {
+        setLocalStorage('todos', todos);
+    }, [todos,setLocalStorage]);
 
     const theme = createMuiTheme({
         palette: {
@@ -75,13 +74,15 @@ function TodoApp(props) {
 
     return (<>
             <div>
-                {todos.length>0 && <Paper className={classes.root}>
-                    <TodoList editTodo={editTodo} todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} toggleCompleted={toggleCompleted}/>
+                {todos.length > 0 && <Paper className={classes.root}>
+                    <TodoList editTodo={editTodo} todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo}
+                              toggleCompleted={toggleCompleted}/>
                 </Paper>}
                 <ThemeProvider theme={theme}>
-                    <Button variant="contained" className={classes.addTodoButton} onClick={addTodo} color="primary">Add Todo&nbsp;<Icon
-                        className={clsx(classes.icon, 'fas fa-plus-circle')}
-                        color="action"/></Button>
+                    <Button variant="contained" className={classes.addTodoButton} onClick={addTodo} color="primary">Add
+                        Todo&nbsp;<Icon
+                            className={clsx(classes.icon, 'fas fa-plus-circle')}
+                            color="action"/></Button>
                 </ThemeProvider>
             </div>
         </>
